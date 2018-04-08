@@ -2,7 +2,10 @@ from __future__ import unicode_literals, print_function, absolute_import
 
 import requests
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
 
 from PIL import Image
 from scihub2pdf.tools import norm_url, download_pdf
@@ -48,14 +51,14 @@ class SciHub(object):
     def start(self):
         try:
             self.s = requests.Session()
-            self.driver = webdriver.PhantomJS()
+            self.driver = webdriver.Chrome(chrome_options=chrome_options)
         except WebDriverException:
-            print("\n\t Install PhantomJS for download files in sci-hub.\n")
+            print("\n\t Install chromedriver for download files in sci-hub.\n")
             print("\t OSX:")
-            print("\t\t npm install -g phantomjs")
+            print("\t\t npm install chromedriver")
             print("\n\t Linux with npm:")
             print("\t\t sudo apt-get install npm\n")
-            print("\t\t sudo npm install -g phantomjs\n")
+            print("\t\t sudo npm install chromedriver\n")
 
             sys.exit(1)
 
