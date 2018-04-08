@@ -3,6 +3,7 @@ from __future__ import unicode_literals, print_function, absolute_import
 import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 chrome_options = Options()
 chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
